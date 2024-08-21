@@ -2,6 +2,43 @@
 
 vite-router-tools
 
+# use
+
+```tsx
+import ViteRouter,{ defineRoutes } from '@change/vite-router';
+import { RouterProvider } from 'react-router-dom'
+import React, { Suspense } from 'react';
+
+const viteRouter = new ViteRouter(import.meta.glob('./pages/**/index.{js,jsx,ts,tsx}'))
+
+const routes = defineRoutes([
+  {
+    path: '/',
+    redirectTo: '/login',
+  },
+  {
+    path: '/login',
+    component: './login',
+  }
+])
+
+const router = viteRouter.createRouter(routes)
+// or 
+// const router = viteRouter.createRouter(routes,{
+//   history:{
+//     type:'hash'
+//   }
+// })
+
+export default function(){
+  return (
+    <Suspense>
+      <RouterProvider router={router} />
+    </Suspense>
+  )
+}
+```
+
 
 ## Development
 
