@@ -9,7 +9,10 @@ import {
 import type { ModuleType, IRoute, CreateRouterOption, HistoryType } from '@/types';
 
 
-const ROUTER_CREATERS: Record<HistoryType, Function> = {
+type Router = ReturnType<typeof createBrowserRouter>
+type Params = Parameters<typeof createBrowserRouter>
+
+const ROUTER_CREATERS: Record<HistoryType, (...args:Params) => Router> = {
   'browser': createBrowserRouter,
   'hash': createHashRouter,
   'memory': createMemoryRouter
@@ -20,7 +23,7 @@ class ViteRouter {
   /**
    * 初始化并且 load modules
    * 更多信息查看 load 方法
-   * @param {Record<string,Function<Promise<{default:any}>>>} modules 
+   * @param {object} modules 
    */
   constructor(modules?: ModuleType) {
     this.modules = {};
@@ -31,7 +34,7 @@ class ViteRouter {
   /**
    * 倒入并解析全量模块
    * 配合 vite 的 import.meta.glob使用
-   * @param {Record<string,Function<Promise<{default:any}>>>} modules 
+   * @param {object} modules 
    * @example
    * const modules = import.meta.glob('./pages/index.tsx')
    * viteRouter.load(modules)
@@ -89,7 +92,7 @@ class ViteRouter {
    * @param option 创建路由的参数
    * @param option.history 路由的配置信息
    * @param option.history.type 路由类型，可选 browser | hash | memory, 同react-router的创建类型
-   * @param option.base 同basename 路由的基础路径
+   * @param option.base 同 basename 路由的基础路径
    * @returns router 返回 react-router 的 router 实例
    */
   createRouter(routes: IRoute[], option?: CreateRouterOption) {
