@@ -1,6 +1,6 @@
 export interface IRoute {
   path: string,
-  component: string,
+  component?: string,
   name?: string,
   children?: IRoute[],
   redirectTo?: string,

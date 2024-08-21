@@ -66,6 +66,11 @@ class ViteRouter {
     const router = creater(
       routes.map(route => {
         const { path, component, redirectTo } = route;
+        const config: Record<string, any> = {
+          path,
+          element: undefined,
+          Component: undefined
+        }
         if (redirectTo) {
           return {
             path,
@@ -76,9 +81,15 @@ class ViteRouter {
             )
           }
         }
+        if (component) {
+          return {
+            path,
+            Component: this.lazy(component)
+          }
+        }
         return {
           path,
-          Component: this.lazy(component)
+          element: <Fragment />
         }
       }),
       {
