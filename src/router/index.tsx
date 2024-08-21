@@ -47,7 +47,7 @@ class ViteRouter {
       }
     }
     // 不是 index 结尾或者 以 index 文件的方式没查找到，则按文件夹查找
-    key = key.concat('index')
+    key = key.concat('/index')
     const module = this.modules[key]
     if (module) {
       return module;
