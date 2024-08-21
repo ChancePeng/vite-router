@@ -78,7 +78,7 @@ class ViteRouter {
         }
       }),
       {
-        basebame: base
+        basename: base
       }
     )
     return router;
