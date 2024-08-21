@@ -1,5 +1,7 @@
+import ViteRouter from './router';
+
 export * from './define'
 
-export * from './router'
+export * from './types';
 
-export * from './types'
+export default ViteRouter
