@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import {
   createBrowserRouter,
   createHashRouter,
@@ -69,7 +69,11 @@ class ViteRouter {
         if (redirectTo) {
           return {
             path,
-            element: <Navigate to={redirectTo} replace />
+            element: (
+              <Fragment>
+                <Navigate to={redirectTo} replace />
+              </Fragment>
+            )
           }
         }
         return {
