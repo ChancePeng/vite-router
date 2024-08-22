@@ -1,37 +1,36 @@
 {
   "name": "@change/vite-router",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A vite tools with create router",
-  "module": "es/index.js",
-  "types": "es/index.d.ts",
-  "main":"lib/index.js",
-  "exports":{
-    ".":{
-      "import":"./es/index.js",
-      "require":"./lib/index.js",
-      "default":"./lib/index.js"
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./es/index.js",
+      "require": "./lib/index.js",
+      "default": "./lib/index.js"
     }
   },
-  "scripts": {
-    "start": "npm run dev",
-    "dev": "dumi dev",
-    "build": "father build",
-    "build:watch": "father dev",
-    "docs:build": "dumi build",
-    "docs:preview": "dumi preview",
-    "prepare": "husky install && dumi setup",
-    "doctor": "father doctor",
-    "lint": "npm run lint:es && npm run lint:css",
-    "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
-    "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
-    "prepublishOnly": "father doctor && npm run build"
-  },
-  "authors": [],
-  "license": "MIT",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "es/index.d.ts",
   "files": [
     "es",
     "lib"
   ],
+  "scripts": {
+    "build": "father build",
+    "build:watch": "father dev",
+    "dev": "dumi dev",
+    "docs:build": "dumi build",
+    "docs:preview": "dumi preview",
+    "doctor": "father doctor",
+    "lint": "npm run lint:es && npm run lint:css",
+    "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
+    "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
+    "prepare": "husky install && dumi setup",
+    "prepublishOnly": "father doctor && npm run build",
+    "start": "npm run dev"
+  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
@@ -54,12 +53,9 @@
       "prettier --parser=typescript --write"
     ]
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "peerDependencies": {
-    "react": ">=16.9.0",
-    "react-dom": ">=16.9.0"
+  "dependencies": {
+    "@babel/runtime": "^7.25.0",
+    "react-router-dom": "^6.26.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
@@ -79,7 +75,12 @@
     "react-dom": "^18.0.0",
     "stylelint": "^14.9.1"
   },
-  "dependencies": {
-    "react-router-dom": "^6.26.1"
-  }
+  "peerDependencies": {
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "authors": []
 }
