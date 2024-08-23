@@ -5,11 +5,13 @@ vite-router-tools
 # use
 
 ```tsx
-import ViteRouter,{ defineRoutes } from '@change/vite-router';
-import { RouterProvider } from 'react-router-dom'
+import ViteRouter, { defineRoutes } from '@change/vite-router';
+import { RouterProvider } from 'react-router-dom';
 import React, { Suspense } from 'react';
 
-const viteRouter = new ViteRouter(import.meta.glob('./pages/**/index.{js,jsx,ts,tsx}'))
+const viteRouter = new ViteRouter(
+  import.meta.glob('./pages/**/index.{js,jsx,ts,tsx}'),
+);
 
 const routes = defineRoutes([
   {
@@ -19,26 +21,34 @@ const routes = defineRoutes([
   {
     path: '/login',
     component: './login',
-  }
-])
+  },
+]);
 
-const router = viteRouter.createRouter(routes)
-// or 
+const router = viteRouter.createRouter(routes);
+// or
 // const router = viteRouter.createRouter(routes,{
 //   history:{
 //     type:'hash'
 //   }
 // })
 
-export default function(){
+export default function () {
   return (
     <Suspense>
       <RouterProvider router={router} />
     </Suspense>
-  )
+  );
 }
 ```
 
+## 提示
+
+引入 react-router-dom 的属性是，请从此导入，避免项目存在多个版本的 react-router-dom 而造成冲突
+
+```diff
+- import {RouterProvider} from 'react-router-dom'
++ import {RouterProvider} from '@change/vite-router'
+```
 
 ## Development
 

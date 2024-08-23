@@ -1,7 +1,9 @@
 import ViteRouter from './router';
 
-export * from './define'
+export * from './define';
 
 export * from './types';
 
-export default ViteRouter
+export * from 'react-router-dom';
+
+export default ViteRouter;
