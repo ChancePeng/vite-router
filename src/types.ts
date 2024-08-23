@@ -1,8 +1,8 @@
 export interface IRoute {
-  path: string; // 路由路径
+  path?: string; // 路由路径
+  index?: boolean;
   component?: string; // 对应的页面组建所在位置
-  // name?: string, // 名称, 暂时没用到
-  // children?: IRoute[], // 子路由，暂时没用到
+  children?: IRoute[]; // 子路由
   redirectTo?: string; // 重定向地址
 }
 
@@ -14,5 +14,5 @@ export interface CreateRouterOption {
   history?: {
     type: HistoryType;
   };
-  // base?: string,
+  base?: string;
 }

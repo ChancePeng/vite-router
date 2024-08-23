@@ -4,6 +4,7 @@ import {
   createHashRouter,
   createMemoryRouter,
   Navigate,
+  RouteObject,
 } from 'react-router-dom';
 
 import type {
@@ -104,37 +105,27 @@ class ViteRouter {
     const { history } = option || {};
     const { type = 'browser' } = history || {};
     const creater = ROUTER_CREATERS[type];
-    const router = creater(
-      routes.map((route) => {
-        const { path, component, redirectTo } = route;
-        // 重定向，则不dynamic import 之间创建重定向组件
-        if (redirectTo) {
-          return {
-            path,
-            element: (
-              <Fragment>
-                <Navigate to={redirectTo} replace />
-              </Fragment>
-            ),
-          };
-        }
+
+    const createRoutes = (configs: IRoute[]): RouteObject[] => {
+      return configs.map((item) => {
+        const { path, component, children, index, redirectTo } = item;
         // 存在component去dynamic import
-        if (component) {
-          return {
-            path,
-            Component: this.lazy(component),
-          };
-        }
         // 不存在则创建一个碎片
+        const Component = component ? this.lazy(component) : Fragment;
         return {
           path,
-          element: <Fragment />,
-        };
-      }),
-      // {
-      //   basename: base,
-      // },
-    );
+          index,
+          children: children?.length ? createRoutes(children) : undefined,
+          element: (
+            <Fragment>
+              {redirectTo ? <Navigate to={redirectTo} /> : <></>}
+              <Component />
+            </Fragment>
+          ),
+        } as RouteObject;
+      });
+    };
+    const router = creater(createRoutes(routes));
     return router;
   }
 }
