@@ -98,11 +98,10 @@ class ViteRouter {
    * @param option 创建路由的参数
    * @param option.history 路由的配置信息
    * @param option.history.type 路由类型，可选 browser | hash | memory, 同react-router的创建类型
-   * @param option.base 同 basename 路由的基础路径
    * @returns router 返回 react-router 的 router 实例
    */
   createRouter(routes: IRoute[], option?: CreateRouterOption): Router {
-    const { history, base } = option || {};
+    const { history } = option || {};
     const { type = 'browser' } = history || {};
     const creater = ROUTER_CREATERS[type];
     const router = creater(
@@ -132,9 +131,9 @@ class ViteRouter {
           element: <Fragment />,
         };
       }),
-      {
-        basename: base,
-      },
+      // {
+      //   basename: base,
+      // },
     );
     return router;
   }
