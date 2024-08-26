@@ -14,5 +14,4 @@ export interface CreateRouterOption {
   history?: {
     type: HistoryType;
   };
-  base?: string;
 }

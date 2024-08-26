@@ -116,10 +116,10 @@ class ViteRouter {
           path,
           index,
           children: children?.length ? createRoutes(children) : undefined,
-          element: (
+          Component: (props) => (
             <Fragment>
               {redirectTo ? <Navigate to={redirectTo} /> : <></>}
-              <Component />
+              <Component {...props} />
             </Fragment>
           ),
         } as RouteObject;
