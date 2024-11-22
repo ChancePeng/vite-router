@@ -1,3 +1,5 @@
+import type { createBrowserRouter } from 'react-router-dom';
+
 export interface IRoute {
   path?: string; // 路由路径
   index?: boolean;
@@ -10,8 +12,10 @@ export type ModuleType = Record<string, () => Promise<any>>;
 
 export type HistoryType = 'browser' | 'hash' | 'memory';
 
-export interface CreateRouterOption {
+type Opts = Parameters<typeof createBrowserRouter>[1];
+
+export type CreateRouterOption = {
   history?: {
     type: HistoryType;
   };
-}
+} & Opts;

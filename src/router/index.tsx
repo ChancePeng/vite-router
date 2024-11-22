@@ -50,6 +50,7 @@ class ViteRouter {
       // 去除前缀和后缀，如果这里index.tsx 和 index.{js,jsx,ts}也可能存在，这里统一认为是：代码不规范，后面的index文件替换检索之前的index
       const key = pathname
         .replace(/.+pages\//, '')
+        .replace(/\/:[^/]+/g, '')
         .replace(/.(jsx|js|tsx|ts)$/, '');
       result[key] = modules[pathname];
     });
@@ -102,7 +103,7 @@ class ViteRouter {
    * @returns router 返回 react-router 的 router 实例
    */
   createRouter(routes: IRoute[], option?: CreateRouterOption): Router {
-    const { history } = option || {};
+    const { history, ...opts } = option || {};
     const { type = 'browser' } = history || {};
     const creater = ROUTER_CREATERS[type];
 
@@ -125,7 +126,7 @@ class ViteRouter {
         } as RouteObject;
       });
     };
-    const router = creater(createRoutes(routes));
+    const router = creater(createRoutes(routes), opts);
     return router;
   }
 }
